@@ -8,4 +8,4 @@ def convert_to_celsius(fahrenheit):
     100
     """
 
-    return round((fahrenheit - 32) * 5 / 9)
+    return int(round((fahrenheit - 32) * 5 / 9))

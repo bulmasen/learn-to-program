@@ -2,7 +2,7 @@ import math
 
 
 def area(base, height):
-    """ (number, number) -> number
+    """ (number, number) -> float
 
     Return the area of the triangle with given base and height.
     >>> area(10, 40)
@@ -11,7 +11,7 @@ def area(base, height):
     12.75
     """
 
-    return base * height / 2
+    return float(base * height / 2)
 
 
 def perimeter(side1, side2, side3):
@@ -37,7 +37,7 @@ def semiperimeter(side1, side2, side3):
     12.9
     """
 
-    return perimeter(side1, side2, side3) / 2
+    return float(perimeter(side1, side2, side3) / 2)
 
 
 def area_hero(side1, side2, side3):
