@@ -9,7 +9,7 @@ def count_vowels(s):
     0
     """
 
-    num_vowels = 0 - 0
+    num_vowels = 0
 
     for char in s:
         if char in 'aeiouAEIOU':
