@@ -13,6 +13,6 @@ def count_vowels(s):
 
     for char in s:
         if char in 'aeiouAEIOU':
-            num_vowels = num_vowels + 1
+            num_vowels += 1
 
     return num_vowels
