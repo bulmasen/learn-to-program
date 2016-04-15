@@ -22,7 +22,7 @@ def count_matches(s1, s2):
 
 def sum_items(list1, list2):
     """ (list of number< list of number) -> list of number
-    Return a new list in wich each item is the sum of the items at the corresponding position of list1 and list2.
+    Return a new list in which each item is the sum of the items at the corresponding position of list1 and list2.
 
     Precondition: len(list1) == len(list2)
 
