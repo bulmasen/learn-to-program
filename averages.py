@@ -1,5 +1,5 @@
 def averages(grades):
-    '''
+    """
     (list of list of number) -> list of float
 
     Return a new list in which each item is the average of the
@@ -8,7 +8,7 @@ def averages(grades):
 
     >>> averages([[70, 75, 80], [70, 80, 90, 100], [80, 100]])
     [75.0, 85.0, 90.0]
-    '''
+    """
 
     averages = []
 
