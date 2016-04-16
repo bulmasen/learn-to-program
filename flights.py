@@ -10,7 +10,7 @@ def report_status(scheduled_time, estimated_time):
     'on time'
     >>> report_status(12.5, 11.5)
     'early'
-    >>> report_status( 9.0, 9.5 )
+    >>> report_status(9.0, 9.5)
     'delayed'
     """
 

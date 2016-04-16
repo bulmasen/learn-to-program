@@ -18,4 +18,3 @@ grade.write_histogram(range_counts, a1_histfile)
 
 a1_file.close()
 a1_histfile.close()
-

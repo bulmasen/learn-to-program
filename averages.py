@@ -10,7 +10,7 @@ def averages(grades):
     [75.0, 85.0, 90.0]
     """
 
-    averages = []
+    grades_averages = []
 
     for grades_list in grades:
         # Calculate the average of grades_list and append it
@@ -20,6 +20,6 @@ def averages(grades):
         for mark in grades_list:
             total = total + mark
 
-        averages.append(total / len(grades_list))
+        grades_averages.append(total / len(grades_list))
 
-    return averages
+    return grades_averages

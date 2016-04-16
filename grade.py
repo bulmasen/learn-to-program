@@ -1,21 +1,22 @@
-def read_grades(gradefile):
+def read_grades(gradesfile):
     """(file open for reading) -> list of float
 
     Read and return the list of grades in the file.
 
-    Precondition: gradefile starts with a header that contains no blank lines, then has a blank line, and then lines containing a student number and grade.
+    Precondition: gradesfile starts with a header that contains no blank lines,
+    then has a blank line, and then lines containing a student number and grade.
     """
 
     # Skip over the header.
-    line = gradefile.readline()
+    line = gradesfile.readline()
     while line != '\n':
-        line = gradefile.readline()
+        line = gradesfile.readline()
 
     # Read the grades, accumulating them into a list.
 
     grades = []
 
-    line = gradefile.readline()
+    line = gradesfile.readline()
     while line != '':
         # Now we have a string containing the info for a
         # single student.
@@ -23,7 +24,7 @@ def read_grades(gradefile):
         # space.
         grade = line[line.rfind(' ') + 1:]
         grades.append(float(grade))
-        line = gradefile.readline()
+        line = gradesfile.readline()
 
     return grades
 
@@ -72,7 +73,7 @@ def write_histogram(range_counts, histfile):
     histfile.write('\n')
 
     # Write the 2-digit ranges.
-    for i in range(1,10):
+    for i in range(1, 10):
         low = i * 10
         high = i * 10 + 9
         histfile.write(str(low) + '-' + str(high) + ': ')
