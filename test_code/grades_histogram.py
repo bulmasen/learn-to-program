@@ -1,5 +1,6 @@
 import tkinter.filedialog
-import grade
+
+from test_code import grade
 
 a1_filename = tkinter.filedialog.askopenfilename()
 a1_file = open(a1_filename, 'r')
