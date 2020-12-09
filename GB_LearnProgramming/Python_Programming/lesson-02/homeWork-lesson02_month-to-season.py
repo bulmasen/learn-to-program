@@ -5,6 +5,7 @@ monthAsked = str.lower(input('Введите название месяца: '))
 
 # Вариант со списком:
 
+monthFound = False
 year = [
     ['зимний', 'декабрь', 'январь', 'февраль'],
     ['весенний', 'март', 'апрель', 'май'],
@@ -15,16 +16,20 @@ year = [
 for season in year:
     for month in season[1:4]:
         if monthAsked == month:
+            monthFound = True
             break
-    if monthAsked == month:  # чтобы дальше не крутился цикл
+    if monthFound:  # чтобы дальше не крутился цикл
         break
-
-print(f'{str.capitalize(month)} -- {season[0]} месяц.')
+if not monthFound:
+    print(f'Не знаю такого месяца -- {monthAsked}.')
+else:
+    print(f'{str.capitalize(month)} -- {season[0]} месяц.')
 
 # Вариант со словарём:
 # Я не понял, можно ли использовать вложенный tuple, с ним просто всё гораздо короче получается в таких случаях IMO.
 # Вариант в списке так же мог сократить с tuple.
 
+monthFound = False
 seasonsDict = {
     ('декабрь', 'январь', 'февраль'): 'зимний',
     ('март', 'апрель', 'май'): 'весенний',
@@ -35,4 +40,7 @@ seasonsDict = {
 for season in seasonsDict:
     if monthAsked in season:
         print(f'{str.capitalize(monthAsked)} -- {seasonsDict.get(season)} месяц.')
+        monthFound = True
         break
+if not monthFound:
+    print(f'Не знаю такого месяца -- {monthAsked}.')
