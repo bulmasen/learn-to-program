@@ -56,16 +56,10 @@ uniqueUnitName = set()
 for product in goods:
     if product[1].get('название') not in uniqueItems:
         uniqueItems.add(product[1].get('название'))
-
-for product in goods:
     if product[1].get('цена') not in uniquePrice:
         uniquePrice.add(product[1].get('цена'))
-
-for product in goods:
     if product[1].get('количество') not in uniqueQuantity:
         uniqueQuantity.add(product[1].get('количество'))
-
-for product in goods:
     if product[1].get('ед.') not in uniqueUnitName:
         uniqueUnitName.add(product[1].get('ед.'))
 
