@@ -7,6 +7,5 @@ wordsList = words.split()
 counter = 1
 
 for singleWord in wordsList:
-    singleWord = singleWord[:10]
-    print(f'{counter}: {singleWord}')
+    print(f'{counter}: {singleWord[:10]}')
     counter += 1
