@@ -25,6 +25,6 @@ line = 0
 for el in clr_list_gen(rand_list):
     print(f'{rand_list[line]:>10} || {el}')
     line += 1
-for el in range(d, len(rand_list)):
+for el in range(line, len(rand_list)):
     print(f'{rand_list[line]:>10} ||')
     line += 1
