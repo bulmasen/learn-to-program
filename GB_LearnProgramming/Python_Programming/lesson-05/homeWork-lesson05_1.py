@@ -6,4 +6,4 @@ in_str = ' '
 with open('proc_file.txt', 'r') as proc_file:
     while in_str:
         in_str = input('Введите строку для добавления в файл: ')
-         proc_file.write(in_str + '\r')
+        proc_file.write(in_str + '\r')
