@@ -1,11 +1,11 @@
 # Создать текстовый файл (не программно), сохранить в нем несколько строк,
 # выполнить подсчет количества строк, количества слов в каждой строке.
 
-words_counter = 0
-lines_counter = 0
-eof_marker = False
 with open(r'another_file.txt', 'r') as txt:
-    while not eof_marker:
+	words_counter = 0
+	lines_counter = 0
+    eof_marker = False
+	while not eof_marker:
         line = txt.readline()
         if line:
             words_counter += len(line.split())
