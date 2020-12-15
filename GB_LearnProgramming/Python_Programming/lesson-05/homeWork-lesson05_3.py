@@ -5,3 +5,12 @@
 # Пример файла:
 # Иванов 23543.12
 # Петров 13749.32
+
+with open(r'salaries.txt', 'r') as salaries:
+    eof_marker = False
+    while not eof_marker:
+        line = salaries.readline()
+        if line:
+
+        else:
+            eof_marker = True
