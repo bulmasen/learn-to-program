@@ -2,10 +2,10 @@
 # выполнить подсчет количества строк, количества слов в каждой строке.
 
 with open(r'another_file.txt', 'r') as txt:
-	words_counter = 0
-	lines_counter = 0
+    words_counter = 0
+    lines_counter = 0
     eof_marker = False
-	while not eof_marker:
+    while not eof_marker:
         line = txt.readline()
         if line:
             words_counter += len(line.split())
