@@ -11,7 +11,7 @@ with open(r'salaries.txt', 'r') as salaries:
     employees = []
     mendicants = []
     employee = []
-    for line in salaries
+    for line in salaries:
         for word in line.split():
             employee.append(word)
         if float(employee[1]) < 20000:
