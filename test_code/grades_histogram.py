@@ -1,11 +1,11 @@
-import tkinter.filedialog
+from tkinter import filedialog
 
 from test_code import grade
 
-a1_filename = tkinter.filedialog.askopenfilename()
+a1_filename = filedialog.askopenfilename()
 a1_file = open(a1_filename, 'r')
 
-a1_histfilename = tkinter.filedialog.asksaveasfilename()
+a1_histfilename = filedialog.asksaveasfilename()
 a1_histfile = open(a1_histfilename, 'w')
 
 # Read the grades into a list.
