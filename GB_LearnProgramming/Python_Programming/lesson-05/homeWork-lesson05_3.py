@@ -10,17 +10,13 @@ with open(r'salaries.txt', 'r') as salaries:
     eof_marker = False
     employees = []
     mendicants = []
-    while not eof_marker:
-        employee = []
-        line = salaries.readline()
-        if line:
-            for word in line.split():
-                employee.append(word)
-            if float(employee[1]) < 20000:
-                mendicants.append(employee)
-            employees.append(employee)
-        else:
-            eof_marker = True
+    employee = []
+    for line in salaries
+        for word in line.split():
+            employee.append(word)
+        if float(employee[1]) < 20000:
+            mendicants.append(employee)
+        employees.append(employee)
 
 total_salary = float()
 for unit in employees:

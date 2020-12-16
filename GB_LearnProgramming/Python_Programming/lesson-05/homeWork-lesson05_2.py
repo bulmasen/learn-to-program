@@ -4,13 +4,8 @@
 with open(r'another_file.txt', 'r') as txt:
     words_counter = 0
     lines_counter = 0
-    eof_marker = False
-    while not eof_marker:
-        line = txt.readline()
-        if line:
-            words_counter += len(line.split())
-            lines_counter += 1
-        else:
-            eof_marker = True
+    for line in txt:
+        words_counter += len(line.split())
+        lines_counter += 1
 
 print(f'В файле {words_counter} слов в {lines_counter} строках.')
