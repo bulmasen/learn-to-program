@@ -7,21 +7,20 @@
 # Петров 13749.32
 
 with open(r'salaries.txt', 'r') as salaries:
-    eof_marker = False
     employees = []
-    mendicants = []
-    employee = []
+    non_rich = []
     for line in salaries:
+        employee = []
         for word in line.split():
             employee.append(word)
         if float(employee[1]) < 20000:
-            mendicants.append(employee)
+            non_rich.append(employee)
         employees.append(employee)
 
 total_salary = float()
 for unit in employees:
     total_salary += float(unit[1])
-print(f'Среднемесячная зарплата сотрудников в списке: {total_salary / len(employees):.2f}')
-print('Сотрудники с зарплатой ниже 20000:')
-for unit in mendicants:
-    print(f'{unit[0]}: {unit[1]}')
+print(f'Среднеарифметический доход сотрудников в списке: {total_salary / len(employees):,.2f}')
+print('Сотрудники с доходом ниже 20,000.00:')
+for unit in non_rich:
+    print(f'{unit[0]}: {float(unit[1]):,.2f}')
