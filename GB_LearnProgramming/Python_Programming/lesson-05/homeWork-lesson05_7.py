@@ -14,3 +14,15 @@
 # Пример json-объекта:
 # [{"firm_1": 5000, "firm_2": 3000, "firm_3": 1000}, {"average_profit": 2000}]
 # Подсказка: использовать менеджер контекста.
+
+with open('businesses.txt', 'r') as source:
+    bsnsses = []
+    for line in source:
+        bsnsses.append(line.split())
+profitable_count = 0
+bsns_profit_summary = 0
+for iter_bsns in bsnsses:
+    if iter_bsns[2] > iter_bsns[3]:
+
+        profitable_count += 1
+    
