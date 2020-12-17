@@ -15,14 +15,25 @@
 # [{"firm_1": 5000, "firm_2": 3000, "firm_3": 1000}, {"average_profit": 2000}]
 # Подсказка: использовать менеджер контекста.
 
-with open('businesses.txt', 'r') as source:
-    bsnsses = []
-    for line in source:
-        bsnsses.append(line.split())
-profitable_count = 0
-bsns_profit_summary = 0
-for iter_bsns in bsnsses:
-    if iter_bsns[2] > iter_bsns[3]:
+from json import dump
 
-        profitable_count += 1
-    
+bsns_dict = {}
+average_dict = {}
+
+with open('businesses.txt', 'r') as source:
+    profitable_count = 0
+    profit_summary = 0
+    profit = 0
+    for line in source:
+        bsns = line.split()
+        profit = float(bsns[2]) - float(bsns[3])
+        bsns_dict[bsns[0]] = profit
+        if profit > 0:
+            profit_summary += profit
+            profitable_count += 1
+
+average_dict['average_profit'] = round(profit_summary / profitable_count, 2)
+finale_list = [bsns_dict, average_dict]
+
+with open('firm_analytics.json', 'w') as json_output:
+    dump(finale_list, json_output, ensure_ascii=False)
