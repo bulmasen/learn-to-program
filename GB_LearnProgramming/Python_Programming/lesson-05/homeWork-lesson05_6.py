@@ -15,7 +15,7 @@ with open('disciplines.txt', 'r') as source_file:
     for line in source_file:
         chunks = line.split(':')
         digits = ''
-        for symbol in chunks[1]:
+        for symbol in chunks[1]:  # всё сам решил!
             if symbol in '0123456789 ':
                 digits += symbol
         subjects[chunks[0]] = sum(int(el) for el in digits.split())
