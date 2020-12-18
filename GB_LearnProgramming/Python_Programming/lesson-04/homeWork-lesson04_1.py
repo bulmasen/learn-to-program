@@ -24,13 +24,11 @@ def calc_wage(hours, rate, bonus=0):
         return None
 
 
-if len(argv) > 4:
-    print('Слишком много параметров.')
-elif len(argv) < 3:
-    print('Не введены необходимые параметры')
-elif len(argv) == 3:
+if len(argv) == 3:
     scr, a, b = argv
     print(f'Гонорар: {calc_wage(a, b):.2f}')
+elif len(argv) <= 2
+    print('Не указаны необходимые параметры')
 else:
     scr, a, b, c = argv
     print(f'Гонорар: {calc_wage(a, b, c):.2f}')

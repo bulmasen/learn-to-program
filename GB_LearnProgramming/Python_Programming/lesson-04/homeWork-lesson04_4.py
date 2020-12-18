@@ -16,7 +16,7 @@ def clr_list_gen(old_list):
     >>> print(next(clr_list_gen([2, 2, 2, 7, 23, 1, 44, 44, 3, 2, 10, 7, 4, 11])))
     23
     """
-    return (old_list[i] for i in range(len(old_list)) if old_list.count(old_list[i]) == 1)
+    return (i for i in old_list if old_list.count(i) == 1)
 
 
 rand_list = [rnd(0, 20) for c in range(rnd(8, 15))]
