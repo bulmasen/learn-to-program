@@ -9,10 +9,19 @@
 # Задачу можно усложнить, реализовав проверку порядка режимов, и при его
 # нарушении выводить соответствующее сообщение и завершать скрипт
 
-class TrafficLight():
+class TrafficLight:
+    import time
 
-    def color(self):
+    def __init__(self, red_time=7, yellow_time=2, green_time=5):
+        self.red_time = red_time
+        self.yellow_time = yellow_time
+        self.green_time = green_time
+
+    def start(self):
         pass
 
-    def running(self):
+    def stop(self):
         pass
+
+
+traffic_light = TrafficLight()

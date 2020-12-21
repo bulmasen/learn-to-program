@@ -7,3 +7,20 @@
 # работу метода.
 # Например: 20м * 5000м * 25кг * 5см = 12500 т
 
+class Road:
+
+    def __init__(self, length, width):
+        self.__length = length
+        self.__width = width
+
+    def coating_weight(self, thickness, weight=2400):
+        """(number[, number]) -> float
+        Returns the total weight of coating needed for the road.
+        You can specify the weight of a cubic meter of coating.
+        """
+        return self.__length * self.__width * thickness * weight / 100
+
+
+example_road = Road(5000, 20)
+print(f'Масса асфальта, для дороги длиной 5000м, шириной 20м и толщиной 5см: \
+{example_road.coating_weight(5, 2500) / 1000:.1f}т')
