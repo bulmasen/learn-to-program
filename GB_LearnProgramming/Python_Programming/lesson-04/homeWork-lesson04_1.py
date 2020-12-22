@@ -27,7 +27,7 @@ def calc_wage(hours, rate, bonus=0):
 if len(argv) == 3:
     scr, a, b = argv
     print(f'Гонорар: {calc_wage(a, b):.2f}')
-elif len(argv) <= 2
+elif len(argv) <= 2:
     print('Не указаны необходимые параметры')
 else:
     scr, a, b, c = argv
