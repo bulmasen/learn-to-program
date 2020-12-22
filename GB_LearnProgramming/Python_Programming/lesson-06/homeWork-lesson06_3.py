@@ -19,7 +19,7 @@ class Worker:
         self.name = name
         self.surname = surname
         self.position = position
-        self.income = workers
+        self.income = workers[0]('wage') * workers[0]('bonus')
 
 
 class Position(Worker):
@@ -32,3 +32,6 @@ class Position(Worker):
 
     def get_full_name(self):
         return f'{self.name} {self.surname}'
+
+
+w1 = Position('vasya','pukin','manager',30000,10000)
