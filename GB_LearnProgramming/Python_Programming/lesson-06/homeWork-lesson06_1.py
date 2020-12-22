@@ -7,21 +7,26 @@
 # желтый, зеленый). Проверить работу примера, создав экземпляр и вызвав
 # описанный метод.
 # Задачу можно усложнить, реализовав проверку порядка режимов, и при его
-# нарушении выводить соответствующее сообщение и завершать скрипт
+# нарушении выводить соответствующее сообщение и завершать скрипт.
+
+from itertools import cycle
+from time import sleep
+
 
 class TrafficLight:
-    import time
 
-    def __init__(self, red_time=7, yellow_time=2, green_time=5):
-        self.red_time = red_time
-        self.yellow_time = yellow_time
-        self.green_time = green_time
+    def __init__(self, red_light=7, yellow_light=2, green_light=5):
+        self.light_time = {
+            'red': red_light,
+            'yellow': yellow_light,
+            'green': green_light
+        }
 
-    def start(self):
-        pass
-
-    def stop(self):
-        pass
+    def running(self):
+        for i in cycle(['red', 'yellow', 'green', 'yellow']):
+            print(i)
+            sleep(self.light_time.get(i))
 
 
 traffic_light = TrafficLight()
+traffic_light.running()

@@ -9,3 +9,43 @@
 # Создайте экземпляры классов, передайте значения атрибутов. Выполните доступ к
 # атрибутам, выведите результат. Выполните вызов методов и также покажите
 # результат.
+
+class Car:
+    horse_power = 735.49875 / 16  # В предметной области разбираюсь слабо, так что забрал формулы
+
+    def __init__(self, engine_power, mass, is_police=False, color='неизвестного цвета', name='безымянный'):
+        self.speed = 0
+        self.color = color
+        self.name = name
+        self.is_police = False
+        self.engine_power = engine_power
+        self.mass = mass
+
+    def go(self):
+        print(f'{self.name} поехала.')
+
+    def stop(self):
+        print(f'{self.name} остановилась.')
+
+    def turn(self, direction):
+        print(f'{self.name} повернула {self.direction}')
+
+
+class TownCar(Car):
+    pass
+
+
+class SportCar(Car):
+    pass
+
+
+class WorkCar(Car):
+    pass
+
+
+class PoliceCar(Car):
+    pass
+
+
+example_car = Car('синий', 'лимузин')
+print(example_car)

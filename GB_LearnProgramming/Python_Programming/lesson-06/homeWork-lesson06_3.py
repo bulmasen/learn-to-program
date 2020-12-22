@@ -8,30 +8,25 @@
 # Position, передать данные, проверить значения атрибутов, вызвать методы
 # экземпляров).
 
-workers = [
-    {'wage': 30000, 'bonus': 10000}
-]
-
-
 class Worker:
-
-    def __init__(self, name, surname, position, income):
+    def __init__(self, name, surname, position, wage, bonus=0):
         self.name = name
         self.surname = surname
         self.position = position
-        self.income = workers[0]('wage') * workers[0]('bonus')
+        self.income = {'wage': float(wage), 'bonus': float(bonus)}
 
 
 class Position(Worker):
 
-    def __init__(self, name, surname, position, wage, bonus):
-        self.wage = float(wage)
-        self.bonus = float(bonus)
-        self.income = wage + bonus
-        super().__init__(name, surname, position, self.income)
+    def __init__(self, name, surname, position, wage, bonus=0):
+        super().__init__(name, surname, position, wage, bonus)
 
     def get_full_name(self):
         return f'{self.name} {self.surname}'
 
+    def get_total_income(self):
+        return self.income('wage') + self.income('bonus')
 
-w1 = Position('vasya','pukin','manager',30000,10000)
+
+worker1 = Worker('vassal', 'puking', 'manager', 100000)
+position1 = Position('fervour', 'knight', 'perfumer', 130000, 28000)
