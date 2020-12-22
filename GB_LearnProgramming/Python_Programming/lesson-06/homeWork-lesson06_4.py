@@ -17,7 +17,7 @@ class Car:
         self.speed = 0
         self.color = color
         self.name = name
-        self.is_police = False
+        self.is_police = is_police
         self.engine_power = engine_power
         self.mass = mass
 

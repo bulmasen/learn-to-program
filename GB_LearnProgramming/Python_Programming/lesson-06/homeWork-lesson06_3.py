@@ -13,7 +13,7 @@ class Worker:
         self.name = name
         self.surname = surname
         self.position = position
-        self.income = {'wage': float(wage), 'bonus': float(bonus)}
+        self.__income = {'wage': float(wage), 'bonus': float(bonus)}
 
 
 class Position(Worker):
@@ -25,8 +25,10 @@ class Position(Worker):
         return f'{self.name} {self.surname}'
 
     def get_total_income(self):
-        return self.income('wage') + self.income('bonus')
+        return self._Worker__income.get('wage') + self._Worker__income.get('bonus')
 
 
-worker1 = Worker('vassal', 'puking', 'manager', 100000)
-position1 = Position('fervour', 'knight', 'perfumer', 130000, 28000)
+worker1 = Worker('Ихтиандр', 'Распутин', 'менеджер', 100000)
+position1 = Position('Гргорый', 'Степанов', 'Парфюмер', 130000, 28000)
+print(position1.get_full_name())
+print(f'Общий доход: {position1.get_total_income():.2f}')
