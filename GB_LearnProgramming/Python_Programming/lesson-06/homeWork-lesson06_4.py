@@ -11,41 +11,64 @@
 # результат.
 
 class Car:
-    horse_power = 735.49875 / 16  # В предметной области разбираюсь слабо, так что забрал формулы
-
-    def __init__(self, engine_power, mass, is_police=False, color='неизвестного цвета', name='безымянный'):
-        self.speed = 0
-        self.color = color
-        self.name = name
-        self.is_police = is_police
-        self.engine_power = engine_power
-        self.mass = mass
+    def __init__(self, speed=0, color='неизвестный', name='безымянный', is_police=False):
+        self.speed = float(speed)
+        self.color = str(color)
+        self.name = str(name)
+        self.is_police = bool(is_police)
 
     def go(self):
-        print(f'{self.name} поехала.')
+        print(f'Машина "{self.name}" поехала.')
 
     def stop(self):
-        print(f'{self.name} остановилась.')
+        print(f'Машина "{self.name}" остановилась.')
 
     def turn(self, direction):
-        print(f'{self.name} повернула {self.direction}')
+        print(f'Машина "{self.name}" повернула {direction}.')
+
+    def show_speed(self):
+        print(f'Скорость машины "{self.name}": {self.speed}')
 
 
 class TownCar(Car):
-    pass
+    def __init__(self, speed=0, color='неизвестный', name='безымянный'):
+        super().__init__(speed, color, name, False)
+
+    def show_speed(self):
+        if self.speed > 60:
+            print(f'Скорость машины "{self.name}": {self.speed} (превышена на {self.speed - 60}).')
+        else:
+            print(f'Скорость машины "{self.name}": {self.speed}')
 
 
 class SportCar(Car):
-    pass
+    def __init__(self, speed=0, color='неизвестный', name='безымянный'):
+        super().__init__(speed, color, name, False)
 
 
 class WorkCar(Car):
-    pass
+    def __init__(self, speed=0, color='неизвестный', name='безымянный'):
+        super().__init__(speed, color, name, False)
+
+    def show_speed(self):
+        if self.speed > 40:
+            print(f'Скорость машины "{self.name}": {self.speed} (превышена на {self.speed - 40}).')
+        else:
+            print(f'Скорость машины "{self.name}": {self.speed}')
 
 
 class PoliceCar(Car):
-    pass
+    def __init__(self, speed=0, color='синий', name='полицейская'):
+        super().__init__(speed, color, name, True)
 
 
-example_car = Car('синий', 'лимузин')
-print(example_car)
+example_car = Car()
+sport_car = SportCar(210, 'красный', 'Порше')
+town_car = TownCar(50, 'чёрный', 'лимузин')
+work_car = WorkCar(55, 'белый', 'Газель')
+police_car = PoliceCar(205)
+
+sport_car.go()
+town_car.turn('направо')
+work_car.show_speed()
+police_car.stop()
