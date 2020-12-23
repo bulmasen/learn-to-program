@@ -7,7 +7,6 @@
 # Петров 13749.32
 
 with open(r'salaries.txt', 'r', encoding='utf-8') as salaries:
-    employees = []
     non_rich = 'Сотрудники с доходом ниже 20,000.00:\n'
     total_salary = float()
     total_employees = 0
