@@ -66,7 +66,7 @@ class Warehouse:
 
     def __str__(self):
         if self.goods:
-            string = 'Над складе хранится:'
+            string = 'На складе хранится:'
             for i in self.goods:
                 string += f'\n\t{i}'
             return string
