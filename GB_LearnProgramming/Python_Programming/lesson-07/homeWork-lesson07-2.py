@@ -53,18 +53,18 @@ class Warehouse:
         self.goods.append(item)
 
     def totalFabricExpend(self):
-        __totalFabric = 0
+        totalFabric = 0
         for i in self.goods:
-            __totalFabric += i.fabricExpend
-        return __totalFabric
+            totalFabric += i.fabricExpend
+        return totalFabric
 
     def __str__(self):
-        __goodsList = ''
+        goodsString = ''
         if self.goods:
-            __goodsList = 'Над складе хранится:'
+            goodsString = 'Над складе хранится:'
             for i in self.goods:
-                __goodsList += f'\n\t{i}'
-            return __goodsList
+                goodsString += f'\n\t{i}'
+            return goodsString
         else:
             return 'Склад пуст.'
 
