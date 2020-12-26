@@ -17,7 +17,7 @@ from abc import ABC, abstractmethod
 
 class Cloth(ABC):
     @abstractmethod
-    def fabricExpend(self):
+    def fabric_expend(self):
         pass
 
 
@@ -26,7 +26,7 @@ class Coat(Cloth):
         self.size = size
 
     @property
-    def fabricExpend(self):
+    def fabric_expend(self):
         return self.size / 6.5 + .5
 
     def __str__(self):
@@ -38,7 +38,7 @@ class Suit(Cloth):
         self.height = height
 
     @property
-    def fabricExpend(self):
+    def fabric_expend(self):
         return self.height * 2 + .3
 
     def __str__(self):
@@ -49,31 +49,36 @@ class Warehouse:
     def __init__(self):
         self.goods = []
 
-    def addGoods(self, item):
+    def add_goods(self, item):
         self.goods.append(item)
 
-    def totalFabricExpend(self):
-        totalFabric = 0
+    @property
+    def total_fabric(self):
+        fabric = 0
         for i in self.goods:
-            totalFabric += i.fabricExpend
-        return totalFabric
+            fabric += i.fabric_expend
+        return fabric
+
+    def __iadd__(self, something):
+        if isinstance(something, Cloth):
+            self.goods.append(something)
+        return self
 
     def __str__(self):
-        goodsString = ''
         if self.goods:
-            goodsString = 'Над складе хранится:'
+            string = 'Над складе хранится:'
             for i in self.goods:
-                goodsString += f'\n\t{i}'
-            return goodsString
+                string += f'\n\t{i}'
+            return string
         else:
             return 'Склад пуст.'
 
 
 warehouse1 = Warehouse()
-warehouse1.addGoods(Suit(40))
-warehouse1.addGoods(Suit(38))
-warehouse1.addGoods(Coat(40))
-warehouse1.addGoods(Coat(42))
+warehouse1.add_goods(Suit(40))
+warehouse1 += Suit(38)
+warehouse1 += Coat(40)
+warehouse1 += Coat(42)
 
 print(warehouse1)
-warehouse1.totalFabricExpend
+print(f'Общее количества материала, затраченного на пошив хранящейся одежды: {warehouse1.total_fabric:.4f}')
