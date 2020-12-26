@@ -75,8 +75,8 @@ class Warehouse:
 
 
 warehouse1 = Warehouse()
-warehouse1.add_goods(Suit(40))
-warehouse1 += Suit(38)
+warehouse1.add_goods(Suit(170))
+warehouse1 += Suit(175)
 warehouse1 += Coat(40)
 warehouse1 += Coat(42)
 
