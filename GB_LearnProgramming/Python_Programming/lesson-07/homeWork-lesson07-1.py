@@ -81,7 +81,7 @@ data_fail = Matrix(longer + fail_matrix)
 print(data_fail)
 
 print(f'\n{fail_matrix}\t\t+\n\t\t1\n\t\t=')
-fail2 = Matrix(fail_matrix + 1)
+fail2 = Matrix(fail_matrix + {})
 print(fail2)
 
 print(f'\n{fail2}\t\t+\n{simple}\t\t=')
