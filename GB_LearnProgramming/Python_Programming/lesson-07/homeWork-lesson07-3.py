@@ -37,3 +37,19 @@
 #
 # Подсказка: подробный список операторов для перегрузки доступен по ссылке
 # https://pythonworld.ru/osnovy/peregruzka-operatorov.html
+
+class Cell:
+    def __init__(self):
+        pass
+
+    def __add__(self, other):
+        pass
+
+    def __sub__(self, other):
+        pass
+
+    def __mul__(self, other):
+        pass
+
+    def __truediv__(self, other):
+        pass

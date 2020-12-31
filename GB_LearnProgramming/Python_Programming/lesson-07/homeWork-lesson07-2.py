@@ -81,4 +81,4 @@ warehouse1 += Coat(40)
 warehouse1 += Coat(42)
 
 print(warehouse1)
-print(f'Общее количества материала, затраченного на пошив хранящейся одежды: {warehouse1.total_fabric:.4f}')
+print(f'Общее количества материала, затраченного на пошив хранящейся одежды: {warehouse1.total_fabric:.1f}')
