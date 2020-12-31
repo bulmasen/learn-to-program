@@ -1,7 +1,7 @@
 # Создать текстовый файл (не программно), сохранить в нем несколько строк,
 # выполнить подсчет количества строк, количества слов в каждой строке.
 
-txt = open(r'another_file.txt', 'r')
+txt = open(r'another_file.txt', 'r', encoding='utf-8')
 words_counter = 0
 lines_counter = 0
 for line in txt:

@@ -22,10 +22,10 @@ translation = {'one': 'один',
 with open('translated.txt', 'w') as translated:
     with open('eng_strings.txt', 'r') as source:
         for source_line in source:
-            translated_line = ''
+            translated_line = []
             for string in source_line.split():
                 if string.lower() not in translation.keys():
-                    translated_line += string + ' '
+                    translated_line.append(f'{string} ')
                 else:
-                    translated_line += translation.get(string.lower()) + ' '
-            translated.write(translated_line.capitalize().rstrip() + '\n')
+                    translated_line.append(f'{translation.get(string.lower())} ')
+            translated.write(''.join(translated_line).capitalize().rstrip() + '\n')
