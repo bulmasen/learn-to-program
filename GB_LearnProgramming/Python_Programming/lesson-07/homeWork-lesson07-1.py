@@ -18,10 +18,13 @@
 
 class Matrix:
     def __init__(self, matrix):
-        self.matrix = matrix
+        if type(matrix) == list:
+            self.matrix = matrix
+        else:
+            self.matrix = []
 
     def sum_matrix(self, other):
-        if isinstance(other, Matrix):
+        if isinstance(other, Matrix) and self.matrix and other.matrix:
             rez = []
             try:
                 for i in range(len(self.matrix)):
@@ -34,7 +37,7 @@ class Matrix:
             except ValueError:
                 print('Ошибка значения в матрице.')
         else:
-            return self.matrix
+            return None
 
     def __add__(self, other):
         self.sum_matrix(other)
@@ -45,7 +48,7 @@ class Matrix:
             for i in self.matrix:
                 str_out.append(f'|')
                 for j in i:
-                    str_out.append(f' {str(j):.>5}')
+                    str_out.append(f' {str(j):_>5}')
                 str_out.append(' |\n')
             return ''.join(str_out)
         else:
@@ -65,14 +68,21 @@ fail_matrix = Matrix([[5678, 6789, 7890, 8901],
                       [4567, 5678, 6789, 7890],
                       [1234, 2345, 'sudo', 4567]])
 
-print(f'{simple}+\n{more}=')
+print(f'\n{simple}\t\t+\n{more}\t\t=')
 simple_sum = Matrix(simple.sum_matrix(more))
 print(simple_sum)
 
-print(f'{longer}+\n{more}=')
+print(f'\n{longer}\t\t+\n{more}\t\t=')
 lesser_size = Matrix(longer + more)
 print(lesser_size)
 
-print(f'{longer}+\n{fail_matrix}=')
+print(f'\n{longer}\t\t+\n{fail_matrix}\t\t=')
 data_fail = Matrix(longer + fail_matrix)
 print(data_fail)
+
+print(f'\n{fail_matrix}\t\t+\n\t\t1\n\t\t=')
+fail2 = Matrix(fail_matrix + 1)
+print(fail2)
+
+print(f'\n{fail2}\t\t+\n{simple}\t\t=')
+print(fail2 + simple)
