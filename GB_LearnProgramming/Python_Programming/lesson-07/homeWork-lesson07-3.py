@@ -67,7 +67,7 @@ class Entity:
             return self
 
     def __truediv__(self, other):
-        if isinstance(other, Entity) and other.cells > 0:
+        if isinstance(other, Entity) and other.cells != 0:
             if self.cells // other.cells == 0:
                 return None
             else:
