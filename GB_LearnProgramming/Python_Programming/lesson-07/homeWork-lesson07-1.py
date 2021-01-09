@@ -70,21 +70,41 @@ fail_matrix = Matrix([[5678, 6789, 7890, 8901],
                       [4567, 5678, 6789, 7890],
                       [1234, 2345, 'sudo', 4567]])
 
-print(f'\n{simple}\t\t+\n{more}\t\t=')
+print(f'\n'
+      f'{simple}'
+      f'\t\t+\n'
+      f'{more}'
+      f'\t\t=')
 simple_sum = Matrix(simple.sum_matrix(more))
 print(simple_sum)
 
-print(f'\n{longer}\t\t+\n{more}\t\t=')
+print(f'\n'
+      f'{longer}'
+      f'\t\t+\n'
+      f'{more}'
+      f'\t\t=')
 lesser_size = Matrix(longer + more)
 print(lesser_size)
 
-print(f'\n{longer}\t\t+\n{fail_matrix}\t\t=')
+print(f'\n'
+      f'{longer}'
+      f'\t\t+\n'
+      f'{fail_matrix}'
+      f'\t\t=')
 data_fail = Matrix(longer + fail_matrix)
 print(data_fail)
 
-print(f'\n{fail_matrix}\t\t+\n\t\t1\n\t\t=')
+print(f'\n'
+      f'{fail_matrix}'
+      f'\t\t+\n'
+      f'\t\t1\n'
+      f'\t\t=')
 fail2 = Matrix(fail_matrix + {})
 print(fail2)
 
-print(f'\n{fail2}\t\t+\n{simple}\t\t=')
+print(f'\n'
+      f'{fail2}'
+      f'\t\t+\n'
+      f'{simple}'
+      f'\t\t=')
 print(fail2 + simple)
