@@ -48,7 +48,8 @@ class Date:
             12: 31
         }
         """(any) -> Boolean
-        Returns True if the input data matches the format [valid date, valid month, valid year]
+        Returns True if the input data matches the format [valid date, valid month, valid year].
+        Leap years are not counted, February 29 is always valid.
         
         Prerequisite: year in the range 1920-2021
 
