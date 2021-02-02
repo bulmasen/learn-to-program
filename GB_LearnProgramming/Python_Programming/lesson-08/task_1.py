@@ -13,12 +13,13 @@ class Date:
         self.str_input = str_input
         try:
             self.date = Date.date_format(str_input)
-            if Date.is_valid_date(self.date):
-                self.day = self.date[0]
-                self.month = self.date[1]
-                self.year = self.date[2]
         except ValueError:
             self.date = None
+        if Date.is_valid_date(self.date):
+            self.day = self.date[0]
+            self.month = self.date[1]
+            self.year = self.date[2]
+
 
     @classmethod
     def date_format(cls, date_str):
@@ -49,9 +50,8 @@ class Date:
         }
         """(any) -> Boolean
         Returns True if the input data matches the format [valid date, valid month, valid year].
-        Leap years are not counted, February 29 is always valid.
         
-        Prerequisite: year in the range 1920-2021
+        Prerequisite: year in the range 1920-2021. Leap years are not counted, February 29 is always valid.
 
         >>> is_valid_date([ds,ds,da])
         False
@@ -71,17 +71,26 @@ class Date:
 
     def __str__(self):
         if Date.is_valid_date(self.date):
-            return f'{self.day:02}-{self.month:02}-{self.year:04}'
+            month_names = {1: 'января',
+                           2: 'февраля',
+                           3: 'марта',
+                           4: 'апреля',
+                           5: 'мая',
+                           6: 'июня',
+                           7: 'июля',
+                           8: 'августа',
+                           9: 'сентября',
+                           10: 'октября',
+                           11: 'ноября',
+                           12: 'декабря'}
+            return f'{self.day:02} {month_names[self.month]} {self.year:04}г.'
         else:
             return f'{self.str_input} is not valid formatted date.'
 
 
-input1 = '20-02-1980'
-input2 = 'ds-sas-sa'
-input3 = '35-02-11'
-date1 = Date(input1)
-date2 = Date(input2)
-date3 = Date(input3)
-print(f'{input1} => {date1}\n'
-      f'{input2} => {date2}\n'
-      f'{input3} => {date3}')
+date1 = Date('20-02-1980')
+date2 = Date('ds-sas-sa')
+date3 = Date('35-02-11')
+print(f'\'{date1.str_input}\' => {date1}\n'
+      f'\'{date2.str_input}\' => {date2}\n'
+      f'\'{date3.str_input}\' => {date3}')
