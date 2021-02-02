@@ -34,6 +34,18 @@ class Date:
 
     @staticmethod
     def is_valid_date(date):
+        """(any) -> Boolean
+        Returns True if the input data matches the format [valid day, valid month, valid year].
+        
+        Prerequisite: year in the range 1920-2021. Leap years are not counted, February 29 is always valid.
+
+        >>> is_valid_date([ds,ds,da])
+        False
+        >>> is_valid_date([02.12.2008])
+        True
+        >>> is_valid_date([03.17.-3000])
+        False
+        """
         days_in_month = {
             1: 31,
             2: 29,
@@ -48,18 +60,6 @@ class Date:
             11: 30,
             12: 31
         }
-        """(any) -> Boolean
-        Returns True if the input data matches the format [valid date, valid month, valid year].
-        
-        Prerequisite: year in the range 1920-2021. Leap years are not counted, February 29 is always valid.
-
-        >>> is_valid_date([ds,ds,da])
-        False
-        >>> is_valid_date([02.12.2008])
-        True
-        >>> is_valid_date([03.17.-3000])
-        False
-        """
         if not date:
             return False
         if len(date) == 3 and \
