@@ -20,7 +20,6 @@ class Date:
             self.month = self.date[1]
             self.year = self.date[2]
 
-
     @classmethod
     def date_format(cls, date_str):
         date_formatted = []
@@ -34,16 +33,14 @@ class Date:
 
     @staticmethod
     def is_valid_date(date):
-        """(any) -> Boolean
+        """(list) -> Boolean
         Returns True if the input data matches the format [valid day, valid month, valid year].
         
         Prerequisite: year in the range 1920-2021. Leap years are not counted, February 29 is always valid.
 
-        >>> is_valid_date([ds,ds,da])
-        False
-        >>> is_valid_date([02.12.2008])
+        >>> print(Date.is_valid_date([2, 12, 2008]))
         True
-        >>> is_valid_date([03.17.-3000])
+        >>> print(Date.is_valid_date([3, 17, -3000]))
         False
         """
         days_in_month = {
@@ -62,11 +59,14 @@ class Date:
         }
         if not date:
             return False
-        if len(date) == 3 and \
+        try:
+            if len(date) == 3 and \
                 1 <= date[0] <= days_in_month[date[1]] and \
-                date[2] in range(1920, 2021):
-            return True
-        else:
+                    date[2] in range(1920, 2021):
+                return True
+            else:
+                return False
+        except KeyError:
             return False
 
     def __str__(self):
