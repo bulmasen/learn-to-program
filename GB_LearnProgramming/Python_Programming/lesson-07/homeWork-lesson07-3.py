@@ -95,8 +95,8 @@ e3_sum = Entity(e1 + e2)
 e4_sub = Entity(e1 - e2)
 e5_div = Entity(e1 / e2)
 e6_mul = Entity(e1 * e2)
-print(f'первый по 5:\n{e1.make_order(5)}\n'
-      f'второй по 6:\n{e2.make_order(6)}\n'
+print(f'Первый: 27 по 5:\n{e1.make_order(5)}\n'
+      f'Второй: 38 по 6:\n{e2.make_order(6)}\n'
       f'Addition: {e3_sum},\n'
       f'Subtraction: {e4_sub},\n'
       f'Division: {e5_div},\n'

@@ -57,54 +57,54 @@ class Matrix:
             return ''
 
 
-simple = Matrix([[1, 2, 3],
+matr_1 = Matrix([[1, 2, 3],
                  [4, 5, 6],
                  [7, 8, 9]])
-more = Matrix([[999, 888, 777],
-               [666, 555, 444],
-               [333, 222, 111]])
-longer = Matrix([[1234, 2345, 3456, 4567],
-                 [4567, 5678, 6789, 7890],
-                 [5678, 6789, 7890, 8901]])
-fail_matrix = Matrix([[5678, 6789, 7890, 8901],
-                      [4567, 5678, 6789, 7890],
-                      [1234, 2345, 'sudo', 4567]])
+matr_2 = Matrix([[999, 888, 777],
+                 [666, 555, 444],
+                 [333, 222, 111]])
+longer_matrix = Matrix([[1234, 2345, 3456, 4567],
+                        [4567, 5678, 6789, 7890],
+                        [5678, 6789, 7890, 8901]])
+matrix_w_error = Matrix([[5678, 6789, 7890, 8901],
+                         [4567, 5678, 6789, 7890],
+                         [1234, 2345, 'sudo', 4567]])
 
-print(f'\n'
-      f'{simple}'
+print(f'\n_________________________________________\n'
+      f'{matr_1}'
       f'\t\t+\n'
-      f'{more}'
+      f'{matr_2}'
       f'\t\t=')
-simple_sum = Matrix(simple.sum_matrix(more))
+simple_sum = Matrix(matr_1.sum_matrix(matr_2))
 print(simple_sum)
 
-print(f'\n'
-      f'{longer}'
+print(f'\n_________________________________________\n'
+      f'{longer_matrix}'
       f'\t\t+\n'
-      f'{more}'
+      f'{matr_2}'
       f'\t\t=')
-lesser_size = Matrix(longer + more)
+lesser_size = Matrix(longer_matrix + matr_2)
 print(lesser_size)
 
-print(f'\n'
-      f'{longer}'
+print(f'\n_________________________________________\n'
+      f'{longer_matrix}'
       f'\t\t+\n'
-      f'{fail_matrix}'
+      f'{matrix_w_error}'
       f'\t\t=')
-data_fail = Matrix(longer + fail_matrix)
+data_fail = Matrix(longer_matrix + matrix_w_error)
 print(data_fail)
 
-print(f'\n'
-      f'{fail_matrix}'
+print(f'\n_________________________________________\n'
+      f'{matrix_w_error}'
       f'\t\t+\n'
       f'\t\t1\n'
       f'\t\t=')
-fail2 = Matrix(fail_matrix + {})
+fail2 = Matrix(matrix_w_error + {})
 print(fail2)
 
-print(f'\n'
+print(f'\n_________________________________________\n'
       f'{fail2}'
       f'\t\t+\n'
-      f'{simple}'
+      f'{matr_1}'
       f'\t\t=')
-print(fail2 + simple)
+print(fail2 + matr_1)

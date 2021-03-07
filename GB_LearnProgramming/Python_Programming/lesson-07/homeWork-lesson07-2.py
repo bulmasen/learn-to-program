@@ -47,7 +47,7 @@ class Suit(Cloth):
         return f'Костюм {self.height} роста.'
 
 
-class Warehouse:
+class Order:
     def __init__(self):
         self.goods = []
 
@@ -68,19 +68,19 @@ class Warehouse:
 
     def __str__(self):
         if self.goods:
-            string = 'На складе хранится:'
+            string = 'Список заказанного:'
             for i in self.goods:
                 string += f'\n\t{i}'
             return string
         else:
-            return 'Склад пуст.'
+            return 'Заказ пуст.'
 
 
-warehouse1 = Warehouse()
-warehouse1.add_goods(Suit(170))
-warehouse1 += Suit(175)
-warehouse1 += Coat(40)
-warehouse1 += Coat(42)
+order1 = Order()
+order1.add_goods(Suit(170))
+order1 += Suit(175)
+order1 += Coat(40)
+order1 += Coat(42)
 
-print(warehouse1)
-print(f'Общее количества материала, затраченного на пошив хранящейся одежды: {warehouse1.total_fabric:.1f}')
+print(order1)
+print(f'Общее количество материала, необходимого на пошив заказанной одежды: {order1.total_fabric:.1f}')
