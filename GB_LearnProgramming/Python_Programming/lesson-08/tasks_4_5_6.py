@@ -13,28 +13,35 @@
     на уроках по ООП.
 """
 
-from abc import ABC, abstractmethod
+
+class OfficeEquipment:
+    def __init__(self, width, height, depth, weight, brand=None):
+        self.width = width
+        self.height = height
+        self.depth = depth
+        self.weight = weight
+        self.brand = brand
+
+
+class Printer(OfficeEquipment):
+    def __init__(self, color=False, laser=False):
+        self.color = color
+        self.laser = laser
+        super().__init__(width, height, depth, weight, brand=None)
+
+
+class Scanner(OfficeEquipment):
+    def __init__(self, resolution_dpi, color=False):
+        self.resolution_dpi = resolution_dpi
+        self.color = color
+        super().__init__(width, height, depth, weight, brand=None)
+
+
+class Copier(OfficeEquipment):
+    def __init__(self, color=False):
+        self.color = color
+        super().__init__(width, height, depth, weight, brand=None)
 
 
 class Warehouse:
     pass
-
-
-class OfficeEquipment(ABC):
-    @abstractmethod
-    def weight(self):
-        pass
-
-
-class Printer(OfficeEquipment):
-    pass
-
-
-class Scanner(OfficeEquipment):
-    pass
-
-
-class Copier(OfficeEquipment):
-    pass
-
-
