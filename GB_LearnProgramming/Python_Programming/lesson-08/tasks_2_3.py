@@ -19,14 +19,44 @@
 
 
 class OwnZeroDivisionError(Exception):
-    def __init__(self, txt):
-        self.txt = txt
+    pass
 
 
-print("Попробуем разделить 2 на 0")
-a = 2
-b = 0
-if b == 0:
-    raise OwnZeroDivisionError('Попытка деления на ноль.')
-else:
-    print(a/b)
+class NotDigitError(Exception):
+    pass
+
+
+def my_div(dividend, divisor):
+    if not dividend.isdigit() or not divisor.isdigit():
+        raise NotDigitError
+    else:
+        if float(divisor) == 0:
+            raise OwnZeroDivisionError
+        else:
+            try:
+                result = float(dividend) / float(divisor)
+            except ValueError:
+                raise
+        return result
+
+
+resultsList = []
+print('Для окончания введите \'stop\'')
+while True:
+    user_input_a = input('Введите делимое: ')
+    if user_input_a.lower() == 'stop':
+        break
+    user_input_b = input('Введите делитель: ')
+    try:
+        division_result = my_div(user_input_a, user_input_b)
+        print(f'Делимое, делитель и результат деления успешно добавлены в список.')
+        resultsList.append([user_input_a, user_input_b, division_result])
+    except OwnZeroDivisionError:
+        print('Ошибка деления на ноль.')
+    except NotDigitError:
+        print('Необходимо вводить только числа.')
+
+print('Введённые числа и результаты:')
+for i in resultsList:
+    print(f'{i[0]} / {i[1]} = {i[2]:.4f}')
+print('That\'s all, folks!')
