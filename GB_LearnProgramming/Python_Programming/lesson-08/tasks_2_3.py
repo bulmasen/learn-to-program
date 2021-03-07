@@ -32,11 +32,7 @@ def my_div(dividend, divisor):
     else:
         if float(divisor) == 0:
             raise OwnZeroDivisionError
-        else:
-            try:
-                result = float(dividend) / float(divisor)
-            except ValueError:
-                raise
+        result = float(dividend) / float(divisor)
         return result
 
 
@@ -48,9 +44,8 @@ while True:
         break
     user_input_b = input('Введите делитель: ')
     try:
-        division_result = my_div(user_input_a, user_input_b)
+        resultsList.append([user_input_a, user_input_b, my_div(user_input_a, user_input_b)])
         print(f'Делимое, делитель и результат деления успешно добавлены в список.')
-        resultsList.append([user_input_a, user_input_b, division_result])
     except OwnZeroDivisionError:
         print('Ошибка деления на ноль.')
     except NotDigitError:

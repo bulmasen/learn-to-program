@@ -44,4 +44,12 @@ class Copier(OfficeEquipment):
 
 
 class Warehouse:
-    pass
+    def __init__(self):
+        pass
+
+    def office_equipment_units_number(self):
+        pass
+
+
+main_warehouse = Warehouse()
+spare_warehouse = Warehouse()
