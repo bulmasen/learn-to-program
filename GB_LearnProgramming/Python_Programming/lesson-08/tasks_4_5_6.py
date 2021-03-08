@@ -12,67 +12,52 @@
     Подсказка: постарайтесь по возможности реализовать в проекте «Склад оргтехники» максимум возможностей, изученных
     на уроках по ООП.
 """
+from abc import ABC
 
 
-class OfficeEquipment:
-    def __init__(self, width, height, depth, weight, brand, model, device_color, color=True):
-        self.width = width
-        self.height = height
-        self.depth = depth
-        self.weight = weight
-        self.brand = brand
-        self.model = model
-        self.device_color = device_color
-        self.color = color
+class OfficeEquipment(ABC):
+    def __init__(self, brand_model, device_characteristics, quantity=1):
+        self.device = {'device_type': '',
+                       'brand_model': brand_model,
+                       'device_characteristics': device_characteristics}
+        self.quantity = quantity
+
+    def __str__(self):
+        return f"{self.device['device_type'].capitalize()} {self.device['brand_model'][0]} {self.device['brand_model'][0]} - {self.quantity}"
+
+
+class UnitOfOE(OfficeEquipment):
+    pass
 
 
 class Printer(OfficeEquipment):
-    def __init__(self, width, height, depth, weight, brand, model, device_color, print_technology, color=True):
-        self.print_technology = print_technology
-        super().__init__(width, height, depth, weight, brand, model, device_color, color)
+    def __init__(self, brand_model, device_characteristics, quantity=1):
+        super().__init__(brand_model, device_characteristics, quantity)
+        self.device.update({'device_type': 'printer'})
 
 
 class Scanner(OfficeEquipment):
-    def __init__(self, width, height, depth, weight, brand, model, device_color, resolution_dpi, color=True):
-        self.resolution_dpi = resolution_dpi
-        super().__init__(width, height, depth, weight, brand, model, device_color, color)
-
-    def __str__(self):
-        if not self.color:
-            color = 'чёрно-белый'
-        else:
-            color = 'цветной'
-        return f'{self.device_color.capitalize()} сканер "{self.brand}" {self.model} ({color})\n' \
-               f'\t{self.width}мм/{self.height}мм/{self.depth}мм весом {self.weight}г, разрешение: ' \
-               f'{self.resolution_dpi} dpi\n '
+    def __init__(self, brand_model, device_characteristics, quantity=1):
+        super().__init__(brand_model, device_characteristics, quantity)
+        self.device.update({'device_type': 'scanner'})
 
 
 class Copier(OfficeEquipment):
-    def __init__(self, width, height, depth, weight, brand, model, device_color, color=True):
-        super().__init__(width, height, depth, weight, brand, model, device_color, color)
+    def __init__(self, brand_model, device_characteristics, quantity=1):
+        super().__init__(brand_model, device_characteristics, quantity)
+        self.device.update({'device_type': 'copier'})
 
     def __str__(self):
-        if not self.color:
-            color = 'чёрно-белый'
-        else:
-            color = 'цветной'
-        return f'{self.device_color.capitalize()} копир "{self.brand}" {self.model} ({color})\n' \
-               f'\t{self.width}мм/{self.height}мм/{self.depth}мм весом {self.weight}г\n'
+        super().__str__()
 
 
 class AllInOne(OfficeEquipment):
-    def __init__(self, width, height, depth, weight, brand, model, device_color, print_technology, color=True):
-        self.print_technology = print_technology
-        self.color = color
-        super().__init__(width, height, depth, weight, brand, model, device_color, color)
+    def __init__(self, brand_model, device_characteristics, quantity=1):
+        super().__init__(brand_model, device_characteristics, quantity)
+        self.device.update({'device_type': 'All-in-one'})
 
     def __str__(self):
-        if not self.color:
-            color = 'чёрно-белый'
-        else:
-            color = 'цветной'
-        return f'{self.device_color.capitalize()} All-in-one "{self.brand}" {self.model} ({color})\n' \
-               f'\t{self.width}мм/{self.height}мм/{self.depth}мм весом {self.weight}г\n'
+        super().__str__()
 
 
 class Warehouse:
@@ -80,34 +65,57 @@ class Warehouse:
         self.goods = []
 
     def add_goods(self, item):
-        self.goods.append(item)
+        if Warehouse.index_of_item_in_list(self.goods, item) is None:
+            self.goods.append(item)
+        else:
+            self.goods[Warehouse.index_of_item_in_list(self.goods, item)][1] += item[1]
 
-    def sub_goods(self, item):
-        self.goods.pop(item)
-
-    def __iadd__(self, something):
-        if isinstance(something, OfficeEquipment):
-            self.goods.append(something)
+    def __iadd__(self, item):
+        if isinstance(item, OfficeEquipment):
+            self.add_goods(item)
         return self
 
     def __str__(self):
         if self.goods:
-            string = 'На складе хранится:\n'
+            string = ''
             for i in self.goods:
                 string += f'\n\t{i}'
             return string
         else:
-            return 'Склад пуст.'
+            return 'This warehouse is empty.'
+
+    @staticmethod
+    def index_of_item_in_list(list_of_goods, item):
+        """(list_of_goods, any) -> number
+        Returns index of first encountered item in list_of_goods
+        >>> Warehouse.index_of_item_in_list([5, 4, 3, 4, 5], 4)
+        1
+        """
+        counter = 0
+        for i in list_of_goods:
+            if i != item:
+                counter += 1
+            else:
+                return counter
+        return None
+
+    def transfer(self, item, quantity, from_warehouse):
+        pass
 
 
 main_warehouse = Warehouse()
 spare_warehouse = Warehouse()
 
-aio1 = AllInOne(300, 100, 250, 2500, 'Canon', 'MP-495 Series', 'Black', 'Jet', True)
-cop1 = Copier(622, 589, 502, 28700, 'Canon', 'imageRUNNER 2206', 'White', False)
+aio1 = AllInOne(['Canon', 'MP-495 Series'], {'device_color': 'Black', 'print_technology': 'jet', 'color': True})
+cop1 = Copier(['Canon', 'imageRUNNER 2206'], {'device_color': 'White', 'color':False}, 2)
 main_warehouse += aio1
 main_warehouse += cop1
 print(f'Основной склад:\n'
-      f'\t{main_warehouse}')
-print(f'Дополнительный склад:\n'
+      f'\t{main_warehouse}'
+      f'Дополнительный склад:\n'
       f'\t{spare_warehouse}')
+spare_warehouse.transfer(aio1, 1, main_warehouse)
+print(f'После пересылки на основном складе хранится:\n'
+      f'{main_warehouse}\n'
+      f'На дополнительном:\n'
+      f'{spare_warehouse}')
