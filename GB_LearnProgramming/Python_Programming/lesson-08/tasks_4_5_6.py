@@ -16,14 +16,26 @@ from abc import ABC
 
 
 class OfficeEquipment(ABC):
-    def __init__(self, brand_model, device_characteristics, quantity=1):
+    def __init__(self, brand_model, device_characteristics):
         self.device = {'device_type': '',
                        'brand_model': brand_model,
                        'device_characteristics': device_characteristics}
-        self.quantity = quantity
 
     def __str__(self):
-        return f"{self.device['device_type'].capitalize()} {self.device['brand_model'][0]} {self.device['brand_model'][0]} - {self.quantity}"
+        return f"{self.device['device_type'].capitalize()} {self.device['brand_model'][0]} " \
+               f"{self.device['brand_model'][1]}"
+
+    @property
+    def is_valid_formatted(self):
+        try:
+            if self.device['device_type'] and \
+                    len(self.device['brand_model']) == 2 and \
+                    type(self.device['device_characteristics']) == dict:
+                return True
+            else:
+                return False
+        except KeyError:
+            return False
 
 
 class UnitOfOE(OfficeEquipment):
@@ -31,44 +43,38 @@ class UnitOfOE(OfficeEquipment):
 
 
 class Printer(OfficeEquipment):
-    def __init__(self, brand_model, device_characteristics, quantity=1):
-        super().__init__(brand_model, device_characteristics, quantity)
+    def __init__(self, brand_model, device_characteristics):
+        super().__init__(brand_model, device_characteristics)
         self.device.update({'device_type': 'printer'})
 
 
 class Scanner(OfficeEquipment):
-    def __init__(self, brand_model, device_characteristics, quantity=1):
-        super().__init__(brand_model, device_characteristics, quantity)
+    def __init__(self, brand_model, device_characteristics):
+        super().__init__(brand_model, device_characteristics)
         self.device.update({'device_type': 'scanner'})
 
 
 class Copier(OfficeEquipment):
-    def __init__(self, brand_model, device_characteristics, quantity=1):
-        super().__init__(brand_model, device_characteristics, quantity)
+    def __init__(self, brand_model, device_characteristics):
+        super().__init__(brand_model, device_characteristics)
         self.device.update({'device_type': 'copier'})
-
-    def __str__(self):
-        super().__str__()
 
 
 class AllInOne(OfficeEquipment):
-    def __init__(self, brand_model, device_characteristics, quantity=1):
-        super().__init__(brand_model, device_characteristics, quantity)
+    def __init__(self, brand_model, device_characteristics):
+        super().__init__(brand_model, device_characteristics)
         self.device.update({'device_type': 'All-in-one'})
-
-    def __str__(self):
-        super().__str__()
 
 
 class Warehouse:
     def __init__(self):
         self.goods = []
 
-    def add_goods(self, item):
-        if Warehouse.index_of_item_in_list(self.goods, item) is None:
-            self.goods.append(item)
+    def add_goods(self, item, quantity=1):
+        if item.is_valid_formatted and Warehouse.index_of_item_in_list(self.goods, item) is None:
+            self.goods.append([item, quantity])
         else:
-            self.goods[Warehouse.index_of_item_in_list(self.goods, item)][1] += item[1]
+            self.goods[Warehouse.index_of_item_in_list(self.goods, item)][1] += int(quantity)
 
     def __iadd__(self, item):
         if isinstance(item, OfficeEquipment):
@@ -77,45 +83,60 @@ class Warehouse:
 
     def __str__(self):
         if self.goods:
-            string = ''
+            f_string = []
             for i in self.goods:
-                string += f'\n\t{i}'
-            return string
+                f_string.append(f'\n\t{i[0]} - {i[1]}')
+            return ''.join(f_string)
         else:
-            return 'This warehouse is empty.'
+            return '\n\tThis warehouse is empty.'
 
     @staticmethod
     def index_of_item_in_list(list_of_goods, item):
-        """(list_of_goods, any) -> number
-        Returns index of first encountered item in list_of_goods
-        >>> Warehouse.index_of_item_in_list([5, 4, 3, 4, 5], 4)
+        """(list_of_lists, any) -> number
+        Returns index of first encountered item in list_of_goods or None if not exist.
+        >>> Warehouse.index_of_item_in_list([[5, 3], [4, 5], [3, 1], [4, 2]], 4)
         1
         """
         counter = 0
         for i in list_of_goods:
-            if i != item:
+            if i[0] != item:
                 counter += 1
             else:
                 return counter
         return None
 
-    def transfer(self, item, quantity, from_warehouse):
+    def transfer(self, item, quantity, to_warehouse):
         pass
 
 
 main_warehouse = Warehouse()
 spare_warehouse = Warehouse()
+distant_warehouse = Warehouse()
 
-aio1 = AllInOne(['Canon', 'MP-495 Series'], {'device_color': 'Black', 'print_technology': 'jet', 'color': True})
-cop1 = Copier(['Canon', 'imageRUNNER 2206'], {'device_color': 'White', 'color':False}, 2)
+aio1 = AllInOne(['Canon', 'MP-495 Series'],
+                {'device_color': 'Black',
+                 'print_technology': 'jet',
+                 'color': True})
+cop1 = Copier(['Canon', 'imageRUNNER 2206'],
+              {'device_color': 'White',
+               'color': False})
+prn1 = Printer(['HP', 'OfficeJet Pro 6230'],
+               {'device_color': 'Black',
+                'print_technology': 'jet',
+                'color': True})
 main_warehouse += aio1
 main_warehouse += cop1
-print(f'Основной склад:\n'
+spare_warehouse.add_goods(prn1, 2)
+print(f'Warehouse 1:'
       f'\t{main_warehouse}'
-      f'Дополнительный склад:\n'
-      f'\t{spare_warehouse}')
+      f'\nWarehouse 2:'
+      f'\t{spare_warehouse}'
+      f'\nWarehouse 3:'
+      f'\t{distant_warehouse}')
 spare_warehouse.transfer(aio1, 1, main_warehouse)
-print(f'После пересылки на основном складе хранится:\n'
-      f'{main_warehouse}\n'
-      f'На дополнительном:\n'
-      f'{spare_warehouse}')
+print(f'\nAfter transfer, Warehouse 1:'
+      f'\t{main_warehouse}\n'
+      f'\nWarehouse 2:'
+      f'\t{spare_warehouse}\n'
+      f'\nWarehouse 3:'
+      f'\t{distant_warehouse}')
