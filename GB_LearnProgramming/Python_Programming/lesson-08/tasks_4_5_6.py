@@ -15,6 +15,10 @@
 from abc import ABC
 
 
+class NotEnoughError(Exception):
+    pass
+
+
 class OfficeEquipment(ABC):
     def __init__(self, brand_model, device_characteristics):
         self.device = {'device_type': '',
@@ -36,10 +40,6 @@ class OfficeEquipment(ABC):
                 return False
         except KeyError:
             return False
-
-
-class UnitOfOE(OfficeEquipment):
-    pass
 
 
 class Printer(OfficeEquipment):
@@ -71,10 +71,18 @@ class Warehouse:
         self.goods = []
 
     def add_goods(self, item, quantity=1):
-        if item.is_valid_formatted and Warehouse.index_of_item_in_list(self.goods, item) is None:
+        if item.is_valid_formatted and Warehouse.ext_index(self.goods, item) is None:
             self.goods.append([item, quantity])
         else:
-            self.goods[Warehouse.index_of_item_in_list(self.goods, item)][1] += int(quantity)
+            self.goods[Warehouse.ext_index(self.goods, item)][1] += int(quantity)
+
+    def remove_goods(self, index, quantity=1):
+        if self.goods[index][1] == int(quantity):
+            self.goods.remove([index])
+        elif self.goods[index][1] > int(quantity):
+            self.goods[index][1] -= int(quantity)
+        else:
+            raise NotEnoughError
 
     def __iadd__(self, item):
         if isinstance(item, OfficeEquipment):
@@ -91,10 +99,10 @@ class Warehouse:
             return '\n\tThis warehouse is empty.'
 
     @staticmethod
-    def index_of_item_in_list(list_of_goods, item):
+    def ext_index(list_of_goods, item):
         """(list_of_lists, any) -> number
-        Returns index of first encountered item in list_of_goods or None if not exist.
-        >>> Warehouse.index_of_item_in_list([[5, 3], [4, 5], [3, 1], [4, 2]], 4)
+        Returns index of first encountered item in list_of_goods or None if not exist. Analog of list.index(value)
+        >>> Warehouse.ext_index([[5, 3], [4, 5], [3, 1], [4, 2]], 4)
         1
         """
         counter = 0
@@ -105,10 +113,16 @@ class Warehouse:
                 return counter
         return None
 
-    def transfer(self, item, quantity, to_warehouse):
-        pass
+    def transfer(self, to_warehouse, item, quantity=1):
+        try:
+            out_item_index = Warehouse.ext_index(self.goods, item)
+            self.remove_goods(out_item_index, int(quantity))
+            to_warehouse.add_goods(item, int(quantity))
+        except NotEnoughError:
+            print(f'Недостаточно {item} на складе.')
 
 
+########################################################################################
 main_warehouse = Warehouse()
 spare_warehouse = Warehouse()
 distant_warehouse = Warehouse()
@@ -118,23 +132,31 @@ aio1 = AllInOne(['Canon', 'MP-495 Series'],
                  'print_technology': 'jet',
                  'color': True})
 cop1 = Copier(['Canon', 'imageRUNNER 2206'],
-              {'device_color': 'White',
+              {'device_color': 'white',
                'color': False})
 prn1 = Printer(['HP', 'OfficeJet Pro 6230'],
-               {'device_color': 'Black',
+               {'device_color': 'black',
                 'print_technology': 'jet',
                 'color': True})
+scn1 = Scanner(['Avision', 'FB10'],
+               {'device_color': 'black',
+                'dpi_resolution': 600})
 main_warehouse += aio1
 main_warehouse += cop1
 spare_warehouse.add_goods(prn1, 2)
+main_warehouse.add_goods(Scanner(['Avision', 'FB10'],
+                                 {'device_color': 'black',
+                                  'dpi_resolution': 600}))
+distant_warehouse += scn1
 print(f'Warehouse 1:'
       f'\t{main_warehouse}'
       f'\nWarehouse 2:'
       f'\t{spare_warehouse}'
       f'\nWarehouse 3:'
       f'\t{distant_warehouse}')
-spare_warehouse.transfer(aio1, 1, main_warehouse)
-print(f'\nAfter transfer, Warehouse 1:'
+spare_warehouse.transfer(distant_warehouse, prn1)
+print(f'\nAfter one {prn1} transition from warehouse 2 to warehouse 3,'
+      f'\nWarehouse 1:'
       f'\t{main_warehouse}\n'
       f'\nWarehouse 2:'
       f'\t{spare_warehouse}\n'
