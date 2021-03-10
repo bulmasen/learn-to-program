@@ -84,6 +84,14 @@ class Warehouse:
         else:
             raise NotEnoughError
 
+    def transfer(self, to_warehouse, item, quantity=1):
+        try:
+            out_item_index = Warehouse.ext_index(self.goods, item)
+            self.remove_goods(out_item_index, int(quantity))
+            to_warehouse.add_goods(item, int(quantity))
+        except NotEnoughError:
+            print(f'Недостаточно {item} на складе.')
+
     def __iadd__(self, item):
         if isinstance(item, OfficeEquipment):
             self.add_goods(item)
@@ -113,19 +121,11 @@ class Warehouse:
                 return counter
         return None
 
-    def transfer(self, to_warehouse, item, quantity=1):
-        try:
-            out_item_index = Warehouse.ext_index(self.goods, item)
-            self.remove_goods(out_item_index, int(quantity))
-            to_warehouse.add_goods(item, int(quantity))
-        except NotEnoughError:
-            print(f'Недостаточно {item} на складе.')
-
 
 ########################################################################################
-main_warehouse = Warehouse()
-spare_warehouse = Warehouse()
-distant_warehouse = Warehouse()
+first_warehouse = Warehouse()
+second_warehouse = Warehouse()
+third_warehouse = Warehouse()
 
 aio1 = AllInOne(['Canon', 'MP-495 Series'],
                 {'device_color': 'Black',
@@ -141,24 +141,26 @@ prn1 = Printer(['HP', 'OfficeJet Pro 6230'],
 scn1 = Scanner(['Avision', 'FB10'],
                {'device_color': 'black',
                 'dpi_resolution': 600})
-main_warehouse += aio1
-main_warehouse += cop1
-spare_warehouse.add_goods(prn1, 2)
-main_warehouse.add_goods(Scanner(['Avision', 'FB10'],
-                                 {'device_color': 'black',
+first_warehouse += aio1
+first_warehouse += cop1
+first_warehouse.add_goods(Scanner(['Avision', 'FB10'],
+                                  {'device_color': 'black',
                                   'dpi_resolution': 600}))
-distant_warehouse += scn1
+second_warehouse.add_goods(prn1, 2)
+third_warehouse += scn1
 print(f'Warehouse 1:'
-      f'\t{main_warehouse}'
+      f'\t{first_warehouse}'
       f'\nWarehouse 2:'
-      f'\t{spare_warehouse}'
+      f'\t{second_warehouse}'
       f'\nWarehouse 3:'
-      f'\t{distant_warehouse}')
-spare_warehouse.transfer(distant_warehouse, prn1)
-print(f'\nAfter one {prn1} transition from warehouse 2 to warehouse 3,'
-      f'\nWarehouse 1:'
-      f'\t{main_warehouse}\n'
+      f'\t{third_warehouse}')
+print(f'\nTransition attempt {prn1} from 2 to 3 and\n'
+      f'two of {aio1} transition from 1 to 3,\n')
+second_warehouse.transfer(third_warehouse, prn1)
+first_warehouse.transfer(third_warehouse, aio1, 2)
+print(f'\nWarehouse 1:'
+      f'\t{first_warehouse}\n'
       f'\nWarehouse 2:'
-      f'\t{spare_warehouse}\n'
+      f'\t{second_warehouse}\n'
       f'\nWarehouse 3:'
-      f'\t{distant_warehouse}')
+      f'\t{third_warehouse}')
