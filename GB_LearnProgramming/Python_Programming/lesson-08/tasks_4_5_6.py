@@ -91,6 +91,8 @@ class Warehouse:
             to_warehouse.add_goods(item, int(quantity))
         except NotEnoughError:
             print(f'Недостаточно {item} на складе.')
+        except ValueError:
+            print('Quantity must be a number.')
 
     def __iadd__(self, item):
         if isinstance(item, OfficeEquipment):
@@ -123,44 +125,58 @@ class Warehouse:
 
 
 ########################################################################################
-first_warehouse = Warehouse()
-second_warehouse = Warehouse()
-third_warehouse = Warehouse()
+# first_warehouse = Warehouse()
+# second_warehouse = Warehouse()
+# third_warehouse = Warehouse()
+#
+# aio1 = AllInOne(['Canon', 'MP-495 Series'],
+#                 {'device_color': 'Black',
+#                  'print_technology': 'jet',
+#                  'color': True})
+# cop1 = Copier(['Canon', 'imageRUNNER 2206'],
+#               {'device_color': 'white',
+#                'color': False})
+# prn1 = Printer(['HP', 'OfficeJet Pro 6230'],
+#                {'device_color': 'black',
+#                 'print_technology': 'jet',
+#                 'color': True})
+# scn1 = Scanner(['Avision', 'FB10'],
+#                {'device_color': 'black',
+#                 'dpi_resolution': 600})
+# first_warehouse += aio1
+# first_warehouse += cop1
+# first_warehouse.add_goods(Scanner(['Avision', 'FB10'],
+#                                   {'device_color': 'black',
+#                                   'dpi_resolution': 600}))
+# second_warehouse.add_goods(prn1, 2)
+# third_warehouse += scn1
+# print(f'Warehouse 1:'
+#       f'\t{first_warehouse}'
+#       f'\nWarehouse 2:'
+#       f'\t{second_warehouse}'
+#       f'\nWarehouse 3:'
+#       f'\t{third_warehouse}')
+# print(f'\nTransition attempt {prn1} from 2 to 3 and\n'
+#       f'two of {aio1} transition from 1 to 3,\n')
+# second_warehouse.transfer(third_warehouse, prn1)
+# first_warehouse.transfer(third_warehouse, aio1, 2)
+# print(f'\nWarehouse 1:'
+#       f'\t{first_warehouse}\n'
+#       f'\nWarehouse 2:'
+#       f'\t{second_warehouse}\n'
+#       f'\nWarehouse 3:'
+#       f'\t{third_warehouse}')
 
-aio1 = AllInOne(['Canon', 'MP-495 Series'],
-                {'device_color': 'Black',
-                 'print_technology': 'jet',
-                 'color': True})
-cop1 = Copier(['Canon', 'imageRUNNER 2206'],
-              {'device_color': 'white',
-               'color': False})
-prn1 = Printer(['HP', 'OfficeJet Pro 6230'],
-               {'device_color': 'black',
-                'print_technology': 'jet',
-                'color': True})
-scn1 = Scanner(['Avision', 'FB10'],
-               {'device_color': 'black',
-                'dpi_resolution': 600})
-first_warehouse += aio1
-first_warehouse += cop1
-first_warehouse.add_goods(Scanner(['Avision', 'FB10'],
-                                  {'device_color': 'black',
-                                  'dpi_resolution': 600}))
-second_warehouse.add_goods(prn1, 2)
-third_warehouse += scn1
-print(f'Warehouse 1:'
-      f'\t{first_warehouse}'
-      f'\nWarehouse 2:'
-      f'\t{second_warehouse}'
-      f'\nWarehouse 3:'
-      f'\t{third_warehouse}')
-print(f'\nTransition attempt {prn1} from 2 to 3 and\n'
-      f'two of {aio1} transition from 1 to 3,\n')
-second_warehouse.transfer(third_warehouse, prn1)
-first_warehouse.transfer(third_warehouse, aio1, 2)
-print(f'\nWarehouse 1:'
-      f'\t{first_warehouse}\n'
-      f'\nWarehouse 2:'
-      f'\t{second_warehouse}\n'
-      f'\nWarehouse 3:'
-      f'\t{third_warehouse}')
+print'Warehouse 0.1a'
+while True:
+    """
+    input:
+    \'w\' to manage warehouses,
+    \'g\' to manage goods
+    
+    if w
+        input add-delete-rename warehouse
+    elif g
+        input add-delete-modify-transfer goods
+        
+    """
