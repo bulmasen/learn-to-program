@@ -67,8 +67,21 @@ class AllInOne(OfficeEquipment):
 
 
 class Warehouse:
-    def __init__(self):
+    def __init__(self, name):
         self.goods = []
+        self.name = name
+
+    def rename_warehouse(self, new_name):
+        if new_name:
+            self.name = new_name
+        else:
+            answer = input('Enter \'yes\' if you want to delete this warehouse entry:')
+            if answer.lower() == 'yes':
+                self.delete_warehouse
+
+    @property
+    def delete_warehouse(self):
+        pass
 
     def add_goods(self, item, quantity=1):
         if item.is_valid_formatted and Warehouse.ext_index(self.goods, item) is None:
@@ -167,16 +180,63 @@ class Warehouse:
 #       f'\nWarehouse 3:'
 #       f'\t{third_warehouse}')
 
-print'Warehouse 0.1a'
+print('Warehouse 0.1a')
 while True:
+    user_input_a = input('\'w\' to manage warehouses,\n'
+                         '\'g\' to manage goods,\n'
+                         '\'stop\' to exit:\n')
+    if user_input_a == 'w':  # работа со складами
+        user_input_b = input('\'a\' to add warehouse,\n'
+                             '\'d\' to delete warehouse,\n'
+                             '\'r\' to rename warehouse\n'
+                             'or press \'Enter\' to return:\n')
+        if user_input_b == 'a':
+            print('добавляем склад')
+        elif user_input_b == 'd':
+            print('удаляем склад')
+        elif user_input_b == 'r':
+            print('переименовываем склад')
+        elif not user_input_b:
+            continue
+    elif user_input_a == 'g':  # работа с товарами
+        user_input_b = input('\'a\' to add goods,\n'
+                             '\'d\' to delete goods,\n'
+                             '\'m\' to modify goods,\n'
+                             '\'t\' to transfer goods'
+                             'or press \'Enter\' to return:')
+        if user_input_b == 'a':
+            print('добавляем товар')
+        elif user_input_b == 'd':
+            print('удаляем товар')
+        elif user_input_b == 'm':
+            print('изменяем товар')
+        elif not user_input_b:
+            continue
+    elif user_input_a == 'stop':
+        break
+
+
     """
-    input:
-    \'w\' to manage warehouses,
-    \'g\' to manage goods
-    
     if w
         input add-delete-rename warehouse
+        if a
+            add warehouse
+        elif d
+            (make delete warehouse function in Warehouse())
+                if warehouse empty
+                    delete warehouse
+                else
+                    print list of goods with quantity
+        elif r
+            print warehouses list
+            input which one to rename (index?)
+            (make rename warehouse function in Warehouse())
+        else
+            return to main menu
     elif g
         input add-delete-modify-transfer goods
+        if a
+            input
+    else
         
     """
